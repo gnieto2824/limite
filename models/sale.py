@@ -50,6 +50,9 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_confirm(self):
+        if self.team_id.team_type == 'website':
+            return
+        
         res = super(SaleOrder, self).action_confirm()
         for order in self:
             order.check_limit()
